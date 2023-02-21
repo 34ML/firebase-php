@@ -74,7 +74,7 @@ final class ServiceAccount
      *
      * @throws InvalidArgumentException
      */
-    public static function fromValue($value)
+    public static function fromValue($value): self
     {
         if ($value instanceof self) {
             return $value;
@@ -87,7 +87,7 @@ final class ServiceAccount
                 }
 
                 $contents = file_get_contents($value);
-                return Json::decode($contents, true);
+                return self::fromArray(Json::decode($contents, true));
             } catch (Throwable $e) {
                 throw new InvalidArgumentException('Invalid service account: '.$e->getMessage(), $e->getCode(), $e);
             }
