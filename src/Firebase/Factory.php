@@ -137,7 +137,8 @@ final class Factory
             }
         } elseif (is_string($value)) {
             try {
-                $serviceAccount = Json::decodeFile($value, true);
+                $contents = file_get_contents($value);
+                $serviceAccount = Json::decode($contents, true);
             } catch (UnexpectedValueException $e) {
                 throw new InvalidArgumentException('Invalid service account: '.$e->getMessage(), $e->getCode(), $e);
             }
